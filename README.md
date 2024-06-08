@@ -20,6 +20,8 @@ Functionality:
 
 Usage:
 This procedure is typically used when there are changes to an ETL procedure to ensure all dependencies are accurately recorded. This helps maintain data integrity and consistency across the data warehouse.
+
+
 2. SP_REMOVE_TABLE_CONSTRAINTS
 
 Purpose:
@@ -32,6 +34,8 @@ Functionality:
 
 Usage:
 This procedure is useful during operations that require schema modifications, data migrations, or other maintenance tasks where constraints need to be temporarily removed.
+
+
 3. SP_SYNC_STG_TABLE_STRUCTURE
 
 Purpose:
