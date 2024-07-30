@@ -21,8 +21,7 @@ AS
           AND STG_ATC.TABLE_NAME = UPPER(V_STG_TABLE_NAME)
           AND STG_ATC.OWNER = UPPER(V_SCHEMA_STG_NAME)
      WHERE CORE_ATC.TABLE_NAME = UPPER(V_CORE_TABLE_NAME)
-       AND CORE_ATC.OWNER = UPPER(V_SCHEMA_CORE_NAME)
-       
+       AND CORE_ATC.OWNER = UPPER(V_SCHEMA_CORE_NAME)      
        AND (STG_ATC.COLUMN_NAME IS NULL OR CORE_ATC.DATA_TYPE <> STG_ATC.DATA_TYPE OR CORE_ATC.DATA_LENGTH <> STG_ATC.DATA_LENGTH);
 
 BEGIN
@@ -30,14 +29,14 @@ BEGIN
         BEGIN
             IF REC.FLAG = 1 THEN
                 -- Column added
-                EXECUTE IMMEDIATE 'ALTER TABLE ' || V_STG_TABLE_NAME || ' ADD ' || REC.CORE_COL_NAME || ' ' || REC.CORE_DATA_TYPE ||
+                EXECUTE IMMEDIATE 'ALTER TABLE ' || V_SCHEMA_STG_NAME || '.' || V_STG_TABLE_NAME || ' ADD ' || REC.CORE_COL_NAME || ' ' || REC.CORE_DATA_TYPE ||
                     CASE 
                         WHEN REC.CORE_DATA_TYPE IN ('VARCHAR2', 'CHAR') THEN '(' || REC.CORE_DATA_LENGTH || ')'
                         ELSE ''
                     END;
             ELSIF REC.FLAG = 2 THEN
                 -- Data type or length changed
-                EXECUTE IMMEDIATE 'ALTER TABLE ' || V_STG_TABLE_NAME || ' MODIFY ' || REC.CORE_COL_NAME || ' ' || REC.CORE_DATA_TYPE ||
+                EXECUTE IMMEDIATE 'ALTER TABLE ' || V_SCHEMA_STG_NAME || '.' || V_STG_TABLE_NAME || ' MODIFY ' || REC.CORE_COL_NAME || ' ' || REC.CORE_DATA_TYPE ||
                     CASE 
                         WHEN REC.CORE_DATA_TYPE IN ('VARCHAR2', 'CHAR') THEN '(' || REC.CORE_DATA_LENGTH || ')'
                         ELSE ''
