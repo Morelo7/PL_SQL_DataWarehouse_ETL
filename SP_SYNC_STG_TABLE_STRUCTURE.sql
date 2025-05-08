@@ -38,7 +38,7 @@ BEGIN
                 -- Data type or length changed
                 EXECUTE IMMEDIATE 'ALTER TABLE ' || V_SCHEMA_STG_NAME || '.' || V_STG_TABLE_NAME || ' MODIFY ' || REC.CORE_COL_NAME || ' ' || REC.CORE_DATA_TYPE ||
                     CASE 
-                        WHEN REC.CORE_DATA_TYPE IN ('VARCHAR2', 'CHAR') THEN '(' || REC.CORE_DATA_LENGTH || ')'
+                        WHEN REC.CORE_DATA_TYPE IN ('VARCHAR2', 'NVARCHAR2', 'CHAR') THEN '(' || REC.CORE_DATA_LENGTH || ')'
                         ELSE ''
                     END;
             END IF;
